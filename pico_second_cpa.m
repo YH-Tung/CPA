@@ -11,6 +11,9 @@ sboxPath = '/home/yodalee/program/CPA/sbox_hw.mat';
 % path to fetch trace file
 tracePath = '/home/yodalee/program/CPA/trace20150409-0001.mat';
 
+% trace need to skip
+skipTrace = [19];
+
 % Config end
 
 load(sboxPath);
@@ -28,15 +31,11 @@ print_info = zeros(5,16);
 
 info = zeros(3,16);
 
-flag = 0;
-
 for n=1:traceNum
 
-    if n==27
-        flag =1;
+    if any(n==skipTrace)
         continue;
     end
-
 
     for i=1:pointNum
         T(i,1) = T(i,1) + trace(n,i);
