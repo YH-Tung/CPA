@@ -24,6 +24,8 @@ plaintext = zeros(traceNum, 16);
 fd = fopen(logFile);
 fgets(fd);fgets(fd);fgets(fd);
 
+h = waitbar(0, 'Read Trace...');
+
 for i=1:traceNum
     filename = strcat(logDirectory, '/',  logName, '/', logName, '_', num2str(i, '%03i'));
     load(filename);
@@ -44,9 +46,10 @@ for i=1:traceNum
     end
     fgets(fd);
 
-    fprintf(1,'trace %d done\n',i);
+    waitbar(i/traceNum, h, sprintf('%04d/%04d', i, traceNum));
 end
 
+close(h);
 fclose(fd);
 
 save(strcat(fetchPath, '/trace', logName) ,'trace','plaintext');
