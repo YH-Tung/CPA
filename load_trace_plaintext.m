@@ -18,8 +18,8 @@ logFile = '';
 fetchPath = '';
 
 % Config End
-trace = zeros(1000,pointNum);
-plaintext = zeros(1000,16);
+trace = zeros(traceNum, pointNum);
+plaintext = zeros(traceNum, 16);
 
 fd = fopen(logFile);
 fgets(fd);fgets(fd);fgets(fd);
@@ -27,21 +27,15 @@ fgets(fd);fgets(fd);fgets(fd);
 for i=1:traceNum
     filename = strcat(logDirectory, '/',  logName, '/', logName, '_', num2str(i, '%03i'));
     load(filename);
-    for j=1:10000
-        if B(j)>0.5
-            break;
-        end
-    end
-    for k=1:pointNum
-        trace(i,k) = A(j);
-        j=j+10;
-    end
+
+    idx = find(A>0.5, 1);
+
+    trace(i,:) = downsample(B(idx:idx + 10 * pointNum - 1), 10)';
 
     in = fgets(fd);
-    k = 1;
-    while in(k)~=':'
-        k=k+1;
-    end
+
+    k = strfind(in, ':');
+    k = k(1);
     for j=1:16
         jj = 2*j+k;
         first = sscanf(in(jj),'%x');
