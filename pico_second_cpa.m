@@ -55,13 +55,14 @@ for n=1:traceNum
 
             locus_cpa(key,1) = -2;
 
+            cpa_wave(key,:) = (HT(byte,key,:) - reshape(H(byte,key) * T(:,1)'/n, [1,1,pointNum]))/n;
+            T_var = (T2(:,1) - T(:,1).*T(:,1) / n) /n;
+
             for i=1:pointNum
-                cpa_wave(key,i) = (HT(byte,key,i) - H(byte,key)*T(i,1)/n)/n;
-                T_var = (T2(i,1) - T(i,1)*T(i,1) / n) / n;
-                if T_var==0
+                if T_var(i)==0
                     cpa_wave(key,i) = 0;
                 else
-                    cpa_wave(key,i) = cpa_wave(key,i) / sqrt(T_var);
+                    cpa_wave(key,i) = cpa_wave(key,i) / sqrt(T_var(i));
                 end
                 if H_var==0
                     cpa_wave(key,i) = 0;
