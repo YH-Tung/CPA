@@ -44,13 +44,12 @@ for n=1:traceNum
             tmp = sbox(tmp+1);
             hypo = hw(tmp+1)-4;
 
-            if hypo~=0
-                H(byte,key) = H(byte,key) + hypo;
-                H2(byte,key) = H2(byte,key) + hypo*hypo;
-                for i=1:pointNum
-                    HT(byte,key,i) = HT(byte,key,i) + trace(n,i)*hypo;
-                end
-            end
+            % do this only if type is not zero
+            % discard the `if` statement since if hypo is zero
+            % it cause no change to data
+            H(byte,key) = H(byte,key) + hypo;
+            H2(byte,key) = H2(byte,key) + hypo*hypo;
+            HT(byte,key,:) = HT(byte,key,:) + reshape(trace(n,:) * hypo, [1,1,pointNum]);
 
             H_var = (H2(byte,key) - H(byte,key)*H(byte,key) / n) / n;
 
