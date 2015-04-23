@@ -25,12 +25,8 @@ for n=1:traceNum
         continue;
     end
 
-    for i=1:pointNum
-        T(i,1) = T(i,1) + trace(n,i);
-        T2(i,1) = T2(i,1) + trace(n,i)*trace(n,i);
-    end
-
-%    cpa_wave = zeros(256,pointNum);
+    T(:) = T(:) + trace(n,:)';
+    T2(:) = T2(:) + (trace(n,:).*trace(n,:))';
 
     for byte=1:16
 
