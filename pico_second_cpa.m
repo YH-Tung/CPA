@@ -1,23 +1,11 @@
+GLOBALVAR;
+
+tracefile = strcat(tracePath, '/trace', logName, '.mat');
+
 tic;
 
-% Config start
-
-pointNum = 9000;
-traceNum = 999;
-
-% path to sbox_hw.mat
-sboxPath = '/home/yodalee/program/CPA/sbox_hw.mat';
-
-% path to fetch trace file
-tracePath = '/home/yodalee/program/CPA/trace20150409-0001.mat';
-
-% trace need to skip
-skipTrace = [19];
-
-% Config end
-
 load(sboxPath);
-load(tracePath);
+load(tracefile);
 
 H = zeros(16,256);
 H2 = zeros(16,256);

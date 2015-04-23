@@ -1,23 +1,13 @@
+GLOBALVAR;
+
+global traceNum, pointNum;
+global logDirectory;
+global logName;
+global logFile;
+global tracePath;
+
 tic;
 
-% Config Start
-
-% Trace number and Point number
-traceNum = 999;
-pointNum = 9000;
-
-% Directory that put every log directory
-% The path should be: logDirectory/logName/logName_{001-N}.mat
-logDirectory = '';
-logName = '';
-
-% path to log file stored by checker
-logFile = '';
-
-% path to save fetch trace and plaintext
-fetchPath = '';
-
-% Config End
 trace = zeros(traceNum, pointNum);
 plaintext = zeros(traceNum, 16);
 
